@@ -1,0 +1,93 @@
+.affairs-container {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: #ffffff; 
+    height: 98%;
+}
+
+.affairs-new, .begin-affair {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.begin-affair{
+    margin: auto 0;
+    height: 100%;
+    justify-content: center;
+}
+
+.vkuiCalendar {
+    background-color: #ffffff;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    padding: 0 31px;
+}
+
+/* .vkuiCalendarHeader__pickers label:nth-child(2n) {
+    background-color: #00AA9F;
+} */
+
+.vkuiCalendarDay, .vkuiCalendarDay__hidden {
+    height: 40px;
+    margin: 1.5px 1.5px;
+    border-radius: 8px;
+    background-color: #E9E9E9;
+}
+
+.vkuiCalendarDay__inner {
+    /* background-color: #E9E9E9; */
+    height: 40px;
+}
+
+.vkuiCalendarDay:hover {
+    background-color: #00AA9F;
+    color: #ffffff;
+}
+
+.vkuiCalendarDay__inner--active {
+    background-color: #00AA9F;;
+}
+
+.vkuiCalendarDay--today 
+.vkuiCalendarDay__day-number:after {
+    color: #00AA9F;
+    border-bottom: 2px solid #00AA9F;;
+}
+
+.vkuiCalendarDay--disabled, 
+.vkuiCalendarDay--not-same-month{
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #E9E9E9;
+}
+
+.new-text {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; 
+}
+
+.aff-btns {
+    width: 95%;
+    padding: 0 20px;
+}
+
+.new-btn, .wrt-btn {
+    width: 100%;
+    margin-bottom: 16px;
+    height: 44px;
+    background-color: #00AA9F;
+    color: #ffffff;
+}
+
+.new-btn:active {
+    background-color: #00c5b8;
+}
