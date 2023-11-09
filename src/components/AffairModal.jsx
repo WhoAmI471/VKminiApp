@@ -111,18 +111,35 @@ const AffairModal = props => {
     const [affair, setAffair] = useState('');
 
 
-    const addNewAffair = () => {
+
+    const addNewAffair = async () => {
         const newAffair = {
             id: Date.now(),
             emoji,
             category,
             affair
         }
-
-        props.setAffairs([...props.affairs, newAffair]);
         
-        close();
-    }
+        console.log(newAffair)
+        
+        try {
+            const response = await fetch('https://127.0.0.1:5000/addAffair', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newAffair), // Преобразование в JSON
+            });
+    
+            const data = await response.json();
+            console.log(data); // Вывод ответа от сервера
+    
+            props.setAffairs([...props.affairs, newAffair]);
+            close();
+        } catch (error) {
+            console.error(error); // Обработка ошибок
+        }
+    };
 
     const close = () => {
         setFormFilledCategory(false);
@@ -131,7 +148,7 @@ const AffairModal = props => {
         setFormFilledAffair(false);
 
         props.closeModal();
-    }
+    };
 
 
 	return(

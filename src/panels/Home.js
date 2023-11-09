@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Group, Div, Text} from '@vkontakte/vkui';
@@ -10,6 +10,15 @@ import backMes from '../img/BackMessage.svg';
 
 
 const Home = ({ id, go}) =>   {
+
+	const [data, setData] = useState(null);
+	
+	useEffect(() => {
+		fetch('/api')
+		.then(response => response.json())
+		.then(response => setData(response[0]['message']))
+	}, []);
+
 	return (
 		<div id={id}>
 			<div></div>
@@ -20,6 +29,9 @@ const Home = ({ id, go}) =>   {
 					<Text className='message-text'>Правильно составленный рацион пищи улучшает качество и продолжительность жизни</Text>
 				</Div>
 			</Div>
+			<Div>{
+				!data ? "Loading..." : data
+				}</Div>
 			<Group className='bottom-buttons'>
 				<Button 
 					className='frt-btn' 
