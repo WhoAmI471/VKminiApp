@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Group, ButtonGroup, Button, Calendar, Panel, PanelHeader, PanelHeaderBack, Text } from '@vkontakte/vkui';
@@ -18,15 +18,19 @@ const Affairs = props => {
 	
 	const [value, setValue] = useState(() => new Date());
 
-	const [affairs, setAffairs] = useState([
-		{id:'1', emoji:'📅', category:'Работа', affair:'Работа, работа, работа'},
-		{id:'2', emoji:'🎂', category:'День рождения', affair:'ДР!!! ДР!!!'},
-		{id:'3', emoji:'🎉', category:'Новый год', affair:'Новый НГ))'},
-		{id:'4', emoji:'📅', category:'Работа', affair:'Работа, работа, работа'},
-	])
 
 	const removeAffair = (affair) => {
-		setAffairs(affairs.filter(a => a.id !== affair.id))
+		props.setUserAffairs(props.userAffairs.filter(a => a.id !== affair.id))
+
+		const responseRemove = fetch('/removeAffair', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(affair),
+		});
+		
+		console.log(responseRemove);
 	}
 
 	return(
@@ -46,8 +50,8 @@ const Affairs = props => {
 						onChange={setValue}
 						showNeighboringMonth={true}
 					/>
-						{affairs.length !== 0
-							? <AffiarList remove={removeAffair} affairs={affairs}/>
+						{props.userAffairs !== 0
+							? <AffiarList remove={removeAffair} affairs={props.userAffairs}/>
 							:   <div className='begin-affair'>
 									<Icon28WriteSquareOutline width={56} height={56} color='#99A2AD'/>
 									<Text className='new-text' weight="1">Начните своё первое дело</Text>
@@ -75,7 +79,15 @@ const Affairs = props => {
 				</ButtonGroup>
 				
 			</div>
-			<AffairModal id={modalOpened} closeModal={closeModal} selectedDate={value.getDate() + " " + value.toLocaleString("default", { month: "long" }) + " " + value.getFullYear()} affairs={affairs} setAffairs={setAffairs}/>
+			<AffairModal 
+				id={modalOpened}
+				userId={props.fetchedUser.id}
+				closeModal={closeModal}
+				selectedDate={value.getDate() + " " + value.toLocaleString("default", 
+				{ month: "long" }) + " " + value.getFullYear()} 
+				affairs={props.userAffairs} 
+				setAffairs={props.setUserAffairs}
+			/>
 		</Panel>
 	)
 };

@@ -123,7 +123,7 @@ const AffairModal = props => {
         console.log(newAffair)
         
         try {
-            const response = await fetch('https://127.0.0.1:5000/addAffair', {
+            const response = await fetch('/addAffair', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

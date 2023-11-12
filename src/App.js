@@ -13,14 +13,19 @@ const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	const [userAffairs, setUserAffairs] = useState([]);
 
 	useEffect(() => {
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
+			console.log(user.id);
 			setPopout(null);
 		}
 		fetchData();
+		fetch('/getAffairs')
+		.then(response => response.json())
+		.then(response => setUserAffairs(response["users"][0]["affairs"]))
 	}, []);
 
 	const go = e => {
@@ -36,7 +41,13 @@ const App = () => {
 							<View activePanel={activePanel}>
 								<Home id='home' go={go}/>
 								<MainHome id='mainHome' go={go}/>
-								<Affairs id='affairs' go={go}/>
+								<Affairs 
+									id='affairs'
+									go={go} 
+									fetchedUser={fetchedUser} 
+									userAffairs={userAffairs} 
+									setUserAffairs={setUserAffairs}
+								/>
 							</View>
 						</SplitCol>
 					</SplitLayout>
