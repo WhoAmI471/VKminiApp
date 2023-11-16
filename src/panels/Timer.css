@@ -1,0 +1,53 @@
+.timer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.timer-time {
+
+    color: #363636;
+
+    text-align: center;
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 40px; /* 62.5% */
+    letter-spacing: 0.2px;
+}
+
+.timer-category {
+    color: rgba(0, 0, 0, 0.829);
+    margin: 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px; 
+    letter-spacing: 0.093px;
+}
+
+.timer-affair {
+    color: #626262;
+    margin: 0;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 200;
+}
+
+.timer-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timer-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.timer-btn:active {
+    filter: brightness(80%);
+    transition: filter 0.3s;
+  }

@@ -16,13 +16,14 @@ const Affairs = props => {
 		setModalOpened('');
 	}
 	
-	const [value, setValue] = useState(() => new Date());
-
+	const [dateNow, setDateNow] = useState(() => new Date());
+	useEffect(() => {
+		setDateNow(dateNow.getDate() + "-" + (dateNow.getMonth() + 1) + "-" + dateNow.getFullYear());
+	}, [])
 
 	const removeAffair = (affair) => {
 		props.setUserAffairs(props.userAffairs.filter(a => a.id !== affair.id))
-
-		const responseRemove = fetch('/removeAffair', {
+		const responseRemove = fetch(`/removeAffair?userId=${props.fetchedUser.id}&affairId=${affair.id}&date=${props.serverDate}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ const Affairs = props => {
 		
 		console.log(responseRemove);
 	}
-
+	console.log(props.userAffairs);
 	return(
 		<Panel id={props.id}>
 			<PanelHeader
@@ -46,15 +47,17 @@ const Affairs = props => {
 			<div className={'affairs-container'}>
 				<div className='affairs-new'>
 					<Calendar
-						value={value}
-						onChange={setValue}
+						value={props.date}
+						onChange={props.setDate}
 						showNeighboringMonth={true}
 					/>
-						{props.userAffairs !== 0
-							? <AffiarList remove={removeAffair} affairs={props.userAffairs}/>
+						{ props.userAffairs['length'] !== 0
+							? <Group className={'affair-list'}>
+								<AffiarList  remove={removeAffair} affairs={props.userAffairs}/>
+							  </Group>
 							:   <div className='begin-affair'>
 									<Icon28WriteSquareOutline width={56} height={56} color='#99A2AD'/>
-									<Text className='new-text' weight="1">Начните своё первое дело</Text>
+									<Text className='new-text' weight="1">Начните своё дело</Text>
 								</div>
 						}
 						
@@ -81,10 +84,20 @@ const Affairs = props => {
 			</div>
 			<AffairModal 
 				id={modalOpened}
+				go={props.go}
+				duration={props.duration}
+				setDuration={props.setDuration}
+				affair={props.affair}
+				setAffair={props.setAffair}
+				category={props.category}
+				setCategory={props.setCategory}
+				isTimerActive={props.isTimerActive}
+				setIsTimerActive={props.setIsTimerActive}
 				userId={props.fetchedUser.id}
 				closeModal={closeModal}
-				selectedDate={value.getDate() + " " + value.toLocaleString("default", 
-				{ month: "long" }) + " " + value.getFullYear()} 
+				selectedDate={props.date.getDate() + " " + props.date.toLocaleString("default", 
+				{ month: "long" }) + " " + props.date.getFullYear()} 
+				serverDate={props.serverDate}
 				affairs={props.userAffairs} 
 				setAffairs={props.setUserAffairs}
 			/>

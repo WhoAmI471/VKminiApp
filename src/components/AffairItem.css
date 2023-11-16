@@ -1,39 +1,56 @@
 .card {
     width: 95%;
-    /* background-color: aqua; */
     border-radius: 15px;
     margin: 5px 0;
 }
 
-.emoji{
-    padding-left: 12px;
-}
-
-.card-content {
-    padding-right: 15px;
-}
 
 .card-container {
-    padding: 4px 0;
+    /* padding: 0 10px; */
+    padding: 0 18px;
+    margin: auto 0;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+
+
 }
 
 .card-header {
     color: #000;
-
+    margin: 5px 0;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 16.062px; /* 99.322% */
-    letter-spacing: -0.259px;
 }
 
-.card-description {
+.card-affair {
     color: #626262;
-
+    margin: 0;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 200;
-    line-height: 21px;
+    font-weight: 300;
+    word-wrap: break-word;
 }
+
+.btn-del {
+    background-color: #FFFFFF;
+    width: 64px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 21px;
+    border: 0.5px solid #00AA9F;
+}
+
+.btn-del:hover {
+    cursor: pointer;
+    background-color: #00AA9F;
+    border: 0.5px solid #FFFFFF;
+}
+
+.btn-del:hover + .del-icon {
+    fill: #00AA9F;
+}
+

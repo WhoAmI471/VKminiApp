@@ -1,52 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { ModalRoot, ModalPage, ModalPageHeader, Button, FormLayout, FormItem, Select, Input, PanelHeaderButton, Text } from '@vkontakte/vkui';
 
-import './AffairsModal.css';
+import './AffairModal.css';
 
 const AffairModal = props => {
 
     var catygories = [
         {
             value: '0',
-            label: 'Работа',
+            label: '💼 Работа',
         },
         {
             value: '1',
-            label: 'Домашние дела',
+            label: '🏠 Домашние дела',
         },
         {
             value: '2',
-            label: 'Спорт',
+            label: '💪 Спорт',
         },
         {
             value: '3',
-            label: 'Путешествия',
+            label: '🌍 Путешествия',
         },
         {
             value: '4',
-            label: 'Здоровье',
+            label: '🏥 Здоровье',
         },
         {
             value: '5',
-            label: 'Финансы',
+            label: '💰 Финансы',
         },
         {
             value: '6',
-            label: 'Время с семьёй',
+            label: '🎨 Хобби',
         },
         {
             value: '7',
-            label: 'Хобби',
+            label: '🎉 Досуг',
         },
         {
             value: '8',
-            label: 'Социальные связи',
-        },
-        {
-            value: '9',
-            label: 'Досуг',
+            label: '📚 Учеба',
         },
         ]
 
@@ -54,81 +50,106 @@ const AffairModal = props => {
             {
                 value: '0',
                 label: '1 ч.',
+                duration: '1 0 0'
             },
             {
                 value: '1',
                 label: '2 ч.',
+                duration: '2 0 0'
             },
             {
                 value: '2',
                 label: '3 ч.',
+                duration: '3 0 0'
             },
             {
                 value: '3',
                 label: '4 ч.',
+                duration: '4 0 0'
             },
             {
                 value: '4',
                 label: '5 ч.',
+                duration: '5 0 0'
             },
             {
                 value: '5',
                 label: '6 ч.',
+                duration: '6 0 0'
             },
             {
                 value: '6',
                 label: '7 ч.',
+                duration: '7 0 0'
             },
             {
                 value: '7',
                 label: '8 ч.',
+                duration: '8 0 0'
             },
         ]
 
-    var emojis = [
-        {
-            value: '0',
-            label: '🎂',
-        },
-        {
-            value: '1',
-            label: '🎉',
-        },
-        {
-            value: '2',
-            label: '📅',
-        },
-    ]
 
     const [formFilledCategory, setFormFilledCategory] = useState(false);
     const [formFilledTime, setFormFilledTime] = useState(false);
-    const [formFilledEmoji, setFormFilledEmoji] = useState(false);
     const [formFilledAffair, setFormFilledAffair] = useState(false);
 
-    const [category, setCategory] = useState('');
-    const [time, setTime] = useState('');
-    const [emoji, setEmoji] = useState('');
-    const [affair, setAffair] = useState('');
-
-
+    useEffect(() => {
+        if (props.isTimerActive){
+            addNewAffair();
+            props.setIsTimerActive(false);
+        }
+    }, [props.isTimerActive]);
 
     const addNewAffair = async () => {
+        // добавление нового дела в список и отправка на сервер
+        var category = props.category;
+        var affair = props.affair;
+
+        const timerUnit = ['ч.', 'мин.', 'с.'];
+        const durationArray = props.duration.split(' ');
+
+        // Удаляем элемент из массива, если его значение равно 0
+        for (let index = durationArray.length - 1; index >= 0; index--) {
+            if (parseInt(durationArray[index], 10) === 0) {
+                durationArray.splice(index, 1);
+                console.log('Удалён по индексу ' + index);
+            } else {
+                durationArray[index] += timerUnit[index];
+                console.log('добавлено к элементу ' + durationArray[index]);
+            }
+        }
+
+
+        // Объединяем массив обратно в строку
+        var duration = durationArray.join(' ');
+
+        console.log(duration); // Выводим отфильтрованную строку
         const newAffair = {
             id: Date.now(),
-            emoji,
             category,
-            affair
+            affair,
+            duration
+        }
+
+        duration = props.duration;
+
+        const newAffairInServer = {
+            id: Date.now(),
+            category,
+            affair,
+            duration
         }
         
         console.log(newAffair)
         
         try {
-            const response = await fetch('/addAffair', {
+            const response = await fetch(`/addAffair?userId=${props.userId}&date=${props.serverDate}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newAffair), // Преобразование в JSON
+                body: JSON.stringify(newAffairInServer), // Преобразование в JSON
             });
     
             const data = await response.json();
@@ -144,7 +165,6 @@ const AffairModal = props => {
     const close = () => {
         setFormFilledCategory(false);
         setFormFilledTime(false);
-        setFormFilledEmoji(false);
         setFormFilledAffair(false);
 
         props.closeModal();
@@ -153,14 +173,13 @@ const AffairModal = props => {
 
 	return(
         <ModalRoot activeModal={props.id} className={'modal-root'}>
-            <ModalPage id="create-affair">
+            <ModalPage id="create-affair" onClose={() => close()}>
                 <ModalPageHeader 
                     before={<Text className='modal-header'>Новое дело</Text>}
                     after={
                         <PanelHeaderButton onClick={() => close()}>
                             Отменить
                         </PanelHeaderButton>
-                        
                     }
                 />
 
@@ -170,7 +189,7 @@ const AffairModal = props => {
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledCategory(true);
-                                setCategory(catygories[e.target.value]['label'])
+                                props.setCategory(catygories[e.target.value]['label'])
                             } else {
                                 setFormFilledCategory(false);
                             }
@@ -180,29 +199,13 @@ const AffairModal = props => {
                             options={catygories}
                         />
                     </FormItem>
-                    <FormItem 
-                        top="Выбрать эмодзи"
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledEmoji(true);
-                                setEmoji(emojis[e.target.value]['label'])
-                                console.log(emojis[e.target.value]['label'])
-                                console.log(emoji)
-                            } else {
-                                setFormFilledEmoji(false);
-                            }
-                        }}
-                    >
-                        <Select
-                            options={emojis}
-                        />
-                    </FormItem>
+
                     <FormItem 
                         top="Назовите ваше дело"
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledAffair(true);
-                                setAffair(e.target.value)
+                                props.setAffair(e.target.value)
                             } else {
                                 setFormFilledAffair(false);
                             }
@@ -212,20 +215,23 @@ const AffairModal = props => {
                             placeholder="Отмечаю др"
                         />
                     </FormItem>
+
                     <div className='btn-padding'>
                         <Button 
                             className='create-btn'
                             stretched={true}
                             appearance=''
-                            onClick={() => addNewAffair()}
-                            disabled={!(formFilledCategory && formFilledEmoji && formFilledAffair)}
+                            onClick={props.go} 
+                            data-to='timer'
+                            disabled={!(formFilledCategory && formFilledAffair)}
                         >
                             Создать
                         </Button>
                     </div>
                 </FormLayout>
             </ModalPage>
-            <ModalPage id="write-affair">
+
+            <ModalPage id="write-affair" onClose={() => close()}>
                 <ModalPageHeader 
                     before={<Text className='modal-header'>Новое дело</Text>}
                     after={
@@ -258,6 +264,7 @@ const AffairModal = props => {
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledCategory(true);
+                                props.setCategory(catygories[e.target.value]['label'])
                             } else {
                                 setFormFilledCategory(false);
                             }
@@ -273,6 +280,7 @@ const AffairModal = props => {
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledTime(true);
+                                props.setDuration(times[e.target.value]['duration']);
                             } else {
                                 setFormFilledTime(false);
                             }
@@ -284,26 +292,11 @@ const AffairModal = props => {
                     </FormItem>
 
                     <FormItem 
-                        top="Выбрать эмодзи"
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledEmoji(true);
-                            } else {
-                                setFormFilledEmoji(false);
-                            }
-                        }}
-                    >
-                        <Select
-                            // placeholder={emoji[0]["label"]}
-                            options={emojis}
-                        />
-                    </FormItem>
-
-                    <FormItem 
                         top="Назовите ваше дело"
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledAffair(true);
+                                props.setAffair(e.target.value)
                             } else {
                                 setFormFilledAffair(false);
                             }
@@ -319,8 +312,8 @@ const AffairModal = props => {
                             className='create-btn'
                             stretched={true}
                             appearance=''
-                            onClick={() => props.closeModal()}
-                            disabled={!(formFilledCategory && formFilledTime && formFilledEmoji && formFilledAffair)}
+                            onClick={() => addNewAffair()}
+                            disabled={!(formFilledCategory && formFilledTime && formFilledAffair)}
                         >
                             Создать
                         </Button>

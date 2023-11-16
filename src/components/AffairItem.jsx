@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Gallery, Tappable, Text, Button } from '@vkontakte/vkui';
+import { Icon16DeleteOutline } from '@vkontakte/icons';
 
 import './AffairItem.css';
 
 const AffiarPost = (props) => {
+    const [isHovered, setIsHovered] = useState(false);
 
     return ( 
         <Tappable className='card'>
             <div className='card-container'>
-                <Button onClick={() => props.remove(props.post)}>удалить</Button>
-                <Text className='emoji'>{props.post.emoji}</Text>
-                <div className='card-content'>
-                    <Text className='card-header'>{props.post.category} | Time</Text>
-                    <Text className='card-affair'>{props.post.affair}</Text>
-                </div>
+                <p className='card-header'>{props.post.category} | {props.post.duration} <span className='card-affair'>{props.post.affair}</span></p>
+                <button 
+                    className='btn-del' 
+                    onClick={() => props.remove(props.post)}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <Icon16DeleteOutline fill={!isHovered ? '#00AA9F' : '#FFFFFF'} />
+                </button>
             </div>
-            {/* <Gallery slideWidth="90%" align="right">
-                <div
-                style={{
-                    height: 150,
-                    backgroundColor: 'var(--vkui--color_background_negative)',
-                }}
-                />
-                <div style={{ backgroundColor: 'var(--vkui--color_background_positive)' }} />
-                <div style={{ backgroundColor: 'var(--vkui--color_background_accent)' }} />
-            </Gallery> */}
         </Tappable>
 
     );

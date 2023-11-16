@@ -9,10 +9,9 @@
 
 #mainHome {
     background-color: #FFFFFF; 
-
 }
 
-#affairs{
+#affairs {
     display: flex; 
     flex-direction: column;
     justify-content: space-between; 
@@ -20,5 +19,4 @@
     background-color: #FFFFFF; 
     height: 100%;
     width: 100%;
-
 }

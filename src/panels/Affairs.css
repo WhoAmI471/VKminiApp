@@ -16,6 +16,12 @@
     /* justify-content: space-between; */
 }
 
+.affair-list {
+    width: 100%;
+    overflow-y: auto;
+    max-height: 250px; 
+}
+
 .begin-affair{
     margin: auto 0;
     height: 100%;
