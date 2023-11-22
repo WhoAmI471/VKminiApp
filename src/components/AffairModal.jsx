@@ -11,38 +11,47 @@ const AffairModal = props => {
         {
             value: '0',
             label: '💼 Работа',
+            color: '#AF60FFB2'
         },
         {
             value: '1',
             label: '🏠 Домашние дела',
+            color: '#FFBA52B2'
         },
         {
             value: '2',
             label: '💪 Спорт',
+            color: '#6866E7B2'
         },
         {
             value: '3',
             label: '🌍 Путешествия',
+            color: '#26D8FFB2'
         },
         {
             value: '4',
             label: '🏥 Здоровье',
+            color: '#4FC98FB2'
         },
         {
             value: '5',
             label: '💰 Финансы',
+            color: '#9694EF'
         },
         {
             value: '6',
             label: '🎨 Хобби',
+            color: '#EE4949B2'
         },
         {
             value: '7',
             label: '🎉 Досуг',
+            color: '#59775CB2'
         },
         {
             value: '8',
             label: '📚 Учеба',
+            color: '#47F143B2'
         },
         ]
 
@@ -189,7 +198,7 @@ const AffairModal = props => {
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledCategory(true);
-                                props.setCategory(catygories[e.target.value]['label'])
+                                props.setCategory([catygories[e.target.value]['label'], catygories[e.target.value]['color']])
                             } else {
                                 setFormFilledCategory(false);
                             }
@@ -264,7 +273,7 @@ const AffairModal = props => {
                         onChange={e => {
                             if (e.target.value) {
                                 setFormFilledCategory(true);
-                                props.setCategory(catygories[e.target.value]['label'])
+                                props.setCategory([catygories[e.target.value]['label'], catygories[e.target.value]['color']])
                             } else {
                                 setFormFilledCategory(false);
                             }

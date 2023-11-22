@@ -55,7 +55,7 @@ const Timer = ({ id, go, affair, category, setDuration, isTimerActive, setIsTime
             
             <div className='timer-header'>
                 <p className='timer-affair'>{affair}</p>
-                <p className='timer-category'>{category}</p>
+                <p className='timer-category'>{category[0]}</p>
                 <p className='timer-time'>{hours.toString().padStart(2, '0')}:{minutes.toString().padStart(2, '0')},{seconds.toString().padStart(2, '0')}</p>
             </div>
             <ButtonGroup>

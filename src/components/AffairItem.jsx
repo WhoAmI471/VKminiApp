@@ -11,7 +11,7 @@ const AffiarPost = (props) => {
     return ( 
         <Tappable className='card'>
             <div className='card-container'>
-                <p className='card-header'>{props.post.category} | {props.post.duration} <span className='card-affair'>{props.post.affair}</span></p>
+                <p className='card-header'>{props.post.category[0]} | {props.post.duration} <span className='card-affair'>{props.post.affair}</span></p>
                 <button 
                     className='btn-del' 
                     onClick={() => props.remove(props.post)}

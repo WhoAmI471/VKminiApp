@@ -49,7 +49,7 @@ const MainHome = props =>  {
 					<CellButton 
 						className='row-btns'
 						onClick={props.go} 
-						data-to='home'
+						data-to='caseAnalysis'
 					> 
 						<div className='home-btn'>
 							<svg width="23" height="22" viewBox="0 0 23 22" fill='none' xmlns="http://www.w3.org/2000/svg">

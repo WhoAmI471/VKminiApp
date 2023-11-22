@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Group, ButtonGroup, Button, Calendar, Panel, PanelHeader, PanelHeaderBack, Text } from '@vkontakte/vkui';
-import { Icon28AddOutline, Icon28WriteSquareOutline } from '@vkontakte/icons';
+import { Icon28WriteSquareOutline } from '@vkontakte/icons';
 import './Affairs.css';
 
 import AffiarList from '../components/AffairList';
@@ -51,15 +51,15 @@ const Affairs = props => {
 						onChange={props.setDate}
 						showNeighboringMonth={true}
 					/>
-						{ props.userAffairs['length'] !== 0
-							? <Group className={'affair-list'}>
-								<AffiarList  remove={removeAffair} affairs={props.userAffairs}/>
-							  </Group>
-							:   <div className='begin-affair'>
-									<Icon28WriteSquareOutline width={56} height={56} color='#99A2AD'/>
-									<Text className='new-text' weight="1">Начните своё дело</Text>
-								</div>
-						}
+					{ props.userAffairs['length'] !== 0
+						? <Group className={'affair-list'}>
+							<AffiarList  remove={removeAffair} affairs={props.userAffairs}/>
+						  </Group>
+						:   <div className='begin-affair'>
+								<Icon28WriteSquareOutline width={56} height={56} color='#99A2AD'/>
+								<Text className='new-text' weight="1">Начните своё дело</Text>
+							</div>
+					}
 						
 				</div>
 				

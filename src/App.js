@@ -7,6 +7,7 @@ import Home from './panels/Home';
 import MainHome from './panels/MainHome';
 import Affairs from './panels/Affairs';
 import Timer from './panels/Timer';
+import CaseAnalysis from './panels/CaseAnalysis';
 
 import './App.css';
 
@@ -22,6 +23,10 @@ const App = () => {
 	
 	const [date, setDate] = useState(() => new Date());
 	const [serverDate, setServerDate] = useState(date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear());
+
+	const [dateRange, setDateRange] = useState('');
+	const [categoryStats, setCategoryStats] = useState();
+
 
 	useEffect(() => {
 		async function fetchData() {
@@ -42,7 +47,15 @@ const App = () => {
 				.then(response => {
 			  		getAffairs(response);
 				});
+			
+			fetch(`/getCategoryStats?userId=${fetchedUser.id}&dateRange=${dateRange}`)
+				.then(response => response.json())
+				.then(response => {
+					console.log(response);
+					setCategoryStats(response);
+				});
 		}
+		setDateRange('day')
 	}, [fetchedUser]);
 	
 	
@@ -55,11 +68,24 @@ const App = () => {
 			  		getAffairs(response);
 				});
 		}
-	  }, [serverDate]);
+	}, [serverDate]);
+
 
 	useEffect(() => {
 		setServerDate(date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear());
 	}, [date])
+
+	
+	useEffect(() => {
+		if (fetchedUser && fetchedUser.id) {
+		  	fetch(`/getCategoryStats?userId=${fetchedUser.id}&dateRange=${dateRange}`)
+				.then(response => response.json())
+				.then(response => {
+			  		console.log(response);
+					setCategoryStats(response);
+				});
+		}
+	}, [dateRange]);
 
 	const getAffairs = (response) => {
 		
@@ -127,6 +153,13 @@ const App = () => {
 									setDuration={setDuration}
 									isTimerActive={isTimerActive}
 									setIsTimerActive={setIsTimerActive}
+								/>
+								<CaseAnalysis 
+									id='caseAnalysis'
+									go={go}
+									dateRange={dateRange}
+									setDateRange={setDateRange}
+									categoryStats={categoryStats} 
 								/>
 							</View>
 						</SplitCol>
