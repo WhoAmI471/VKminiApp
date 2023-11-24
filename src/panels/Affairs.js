@@ -5,8 +5,8 @@ import { Group, ButtonGroup, Button, Calendar, Panel, PanelHeader, PanelHeaderBa
 import { Icon28WriteSquareOutline } from '@vkontakte/icons';
 import './Affairs.css';
 
-import AffiarList from '../components/AffairList';
-import AffairModal from '../components/AffairModal';
+import AffiarList from '../components/Affairs/AffairList';
+import AffairModal from '../components/Affairs/AffairModal';
 
 const Affairs = props => {
 

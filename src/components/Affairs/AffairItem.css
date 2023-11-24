@@ -4,6 +4,11 @@
     margin: 5px 0;
 }
 
+.card-diagram {
+    width: 95%;
+    border-radius: 15px;
+    margin: 1px 0;
+}
 
 .card-container {
     /* padding: 0 10px; */
@@ -14,6 +19,12 @@
     justify-content: space-between;
 
 
+}
+
+.card-header-diagram {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
 }
 
 .card-header {

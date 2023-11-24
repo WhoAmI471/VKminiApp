@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 
 import { Panel, PanelHeader, PanelHeaderBack, Button, Group, Div, Text} from '@vkontakte/vkui';
 
-import CaseTabs from '../components/CaseTabs';
-import AffairDiagram from '../components/AffairDiagram';
+import CaseTabs from '../components/Diagrams/CaseTabs';
+import DiagramTabs from '../components/Diagrams/DiagramTabs';
+import AffairDiagram from '../components/Diagrams/AffairDiagram';
+import AffairDiagramList from '../components/Diagrams/AffairDiagramList';
 
 import './CaseAnalysis.css';
 
 const CaseAnalysis = ({ id, go, dateRange, setDateRange, categoryStats }) =>   {
     
     useEffect(() => {
-        
+        console.log(categoryStats)
     }, [])
 
+    const [diagramView, setDiagramView] = useState('doughnut');
 
 	return (
 		<Panel id={id}>
@@ -25,10 +28,12 @@ const CaseAnalysis = ({ id, go, dateRange, setDateRange, categoryStats }) =>   {
                 Анализ дел
             </PanelHeader>
             
-                <CaseTabs dateRange={dateRange} setDateRange={setDateRange} />
+            <CaseTabs dateRange={dateRange} setDateRange={setDateRange} />
             <div className='diagram-container'>
-                <AffairDiagram categoryStats={ categoryStats }/>
+                <AffairDiagram categoryStats={ categoryStats } diagramView={ diagramView } />
             </div>
+                <DiagramTabs diagramView={diagramView} setDiagramView={setDiagramView} />
+            <AffairDiagramList categoryStats={ categoryStats }/>
 		</Panel>
 	)
 };

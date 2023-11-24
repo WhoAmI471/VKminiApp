@@ -34,6 +34,12 @@
     text-align: center;
     font-size: 42px;
     font-weight: 200;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 300px;
+
 }
 
 .timer-header {

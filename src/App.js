@@ -100,7 +100,7 @@ const App = () => {
 						durationArray.splice(index, 1);
 						console.log('Удалён по индексу ' + index);
 					} else {
-						durationArray[index] += timerUnit[index];
+						durationArray[index] += " " + timerUnit[index];
 						console.log('добавлено к элементу ' + durationArray[index]);
 					}
 				}
