@@ -28,6 +28,6 @@
 .modal-header {
     font-size: 22.792px;
     font-weight: 700;
-    color: #000000;
+    color: var(--vkui--color_text_primary);
     padding-left: 16px;
 }

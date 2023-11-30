@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import { Panel, PanelHeader, PanelHeaderBack, Button, Group, Div, Text} from '@vkontakte/vkui';
+import { Panel, PanelHeader, PanelHeaderBack, Spacing, Separator, Button, Group, Div, Text} from '@vkontakte/vkui';
 
 import CaseTabs from '../components/Diagrams/CaseTabs';
 import DiagramTabs from '../components/Diagrams/DiagramTabs';
@@ -11,10 +11,6 @@ import AffairDiagramList from '../components/Diagrams/AffairDiagramList';
 import './CaseAnalysis.css';
 
 const CaseAnalysis = ({ id, go, dateRange, setDateRange, categoryStats }) =>   {
-    
-    useEffect(() => {
-        console.log(categoryStats)
-    }, [])
 
     const [diagramView, setDiagramView] = useState('doughnut');
 
@@ -30,10 +26,21 @@ const CaseAnalysis = ({ id, go, dateRange, setDateRange, categoryStats }) =>   {
             
             <CaseTabs dateRange={dateRange} setDateRange={setDateRange} />
             <div className='diagram-container'>
-                <AffairDiagram categoryStats={ categoryStats } diagramView={ diagramView } />
+                <AffairDiagram categoryStats={categoryStats} diagramView={diagramView} />
             </div>
-                <DiagramTabs diagramView={diagramView} setDiagramView={setDiagramView} />
-            <AffairDiagramList categoryStats={ categoryStats }/>
+
+            <Spacing size={2}>
+                <Separator />
+            </Spacing>
+
+            <DiagramTabs diagramView={diagramView} setDiagramView={setDiagramView} />
+            
+            <Spacing size={2}>
+                <Separator />
+            </Spacing>
+
+            <Spacing size={5} />
+            <AffairDiagramList categoryStats={categoryStats}/>
 		</Panel>
 	)
 };

@@ -13,16 +13,21 @@ import './App.css';
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
+
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+
 	const [userAffairs, setUserAffairs] = useState([]);
-    const [duration, setDuration] = useState('');
     const [affair, setAffair] = useState('');
+    const [duration, setDuration] = useState('');
     const [category, setCategory] = useState('');
+
 	const [isTimerActive, setIsTimerActive] = useState(false);
 	
 	const [date, setDate] = useState(() => new Date());
 	const [serverDate, setServerDate] = useState(date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear());
+
+	const [advice, setAdvice] = useState(null);
 
 	const [dateRange, setDateRange] = useState('');
 	const [categoryStats, setCategoryStats] = useState();
@@ -32,8 +37,6 @@ const App = () => {
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
-			console.log(user.id);
-			setPopout(null);
 		}
 		fetchData();
 	}, []);
@@ -42,18 +45,26 @@ const App = () => {
 	useEffect(() => {
 		if (fetchedUser && fetchedUser.id) {
 			console.log(fetchedUser);
+			fetch(`/getDailyAdvice?userId=${fetchedUser.id}`)
+				.then(response => response.json())
+				.then(response => {
+					setAdvice(response);
+				});
 		  	fetch(`/getAffairs?userId=${fetchedUser.id}&date=${serverDate}`)
 				.then(response => response.json())
 				.then(response => {
 			  		getAffairs(response);
 				});
-			
 			fetch(`/getCategoryStats?userId=${fetchedUser.id}&dateRange=${dateRange}`)
 				.then(response => response.json())
 				.then(response => {
-					console.log(response);
-					setCategoryStats(response);
+					const sortedResponse = Object.fromEntries(
+						Object.entries(response).sort(([,a], [,b]) => b.duration - a.duration)
+					);
+					console.log(sortedResponse);
+					setCategoryStats(sortedResponse);
 				});
+			setPopout(null);
 		}
 		setDateRange('day')
 	}, [fetchedUser]);
@@ -85,7 +96,7 @@ const App = () => {
 					setCategoryStats(response);
 				});
 		}
-	}, [dateRange]);
+	}, [dateRange, userAffairs]);
 
 	const getAffairs = (response) => {
 		
@@ -125,7 +136,7 @@ const App = () => {
 					<SplitLayout popout={popout} >
 						<SplitCol autoSpaced='true' stretchedOnMobile='true' >
 							<View activePanel={activePanel}>
-								<Home id='home' go={go}/>
+								<Home id='home' go={go} userId={fetchedUser} advice={advice} setAdvice={setAdvice}/>
 								<MainHome id='mainHome' go={go}/>
 								<Affairs 
 									id='affairs'
@@ -151,7 +162,6 @@ const App = () => {
 									affair={affair} 
 									category={category} 
 									setDuration={setDuration}
-									isTimerActive={isTimerActive}
 									setIsTimerActive={setIsTimerActive}
 								/>
 								<CaseAnalysis 

@@ -3,20 +3,20 @@
     flex-direction: column;
     justify-content: space-between; 
     align-items: center;
-    background-color: #FFFFFF; 
+    /* background-color: #FFFFFF;  */
     height: 100%;
 }
-
+/* 
 #mainHome {
     background-color: #FFFFFF; 
-}
+} */
 
 #affairs {
     display: flex; 
     flex-direction: column;
     justify-content: space-between; 
     align-items: center;
-    background-color: #FFFFFF; 
+    /* background-color: #FFFFFF;  */
     height: 100%;
     width: 100%;
 }

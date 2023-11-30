@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Group } from '@vkontakte/vkui';
 import AffairDiagramItem from './AffairDiagramItem';
 
 export const AffairDiagramList = ({categoryStats}) => {

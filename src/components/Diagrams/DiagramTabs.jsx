@@ -11,7 +11,7 @@ const DiagramTabs = ({ diagramView, setDiagramView }) => {
     console.log(diagramView)
 
     return (
-        <Group>
+        <Group style={{margin: "0 16px"}}>
             <Tabs>
                 <HorizontalScroll arrowSize="m">
                     <TabsItem
@@ -25,12 +25,6 @@ const DiagramTabs = ({ diagramView, setDiagramView }) => {
                         onClick={() => setDiagramView('bar')}
                     >
                         Гистограмма
-                    </TabsItem>
-                    <TabsItem
-                        selected={diagramView === ''}
-                        onClick={() => setDiagramView('')}
-                    >
-                        ???????
                     </TabsItem>
                 </HorizontalScroll>
             </Tabs>

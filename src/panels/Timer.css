@@ -8,8 +8,7 @@
 
 
 .timer-time {
-
-    color: #363636;
+    /* color: #363636; */
 
     text-align: center;
     font-size: 64px;
@@ -19,7 +18,7 @@
 }
 
 .timer-category {
-    color: rgba(0, 0, 0, 0.829);
+    /* color: rgba(0, 0, 0, 0.829); */
     margin: 0;
     text-align: center;
     font-size: 18px;
@@ -39,7 +38,6 @@
     white-space: nowrap;
     overflow: hidden;
     width: 300px;
-
 }
 
 .timer-header {
@@ -53,7 +51,8 @@
     background-color: transparent;
     cursor: pointer;
 }
+
 .timer-btn:active {
     filter: brightness(80%);
     transition: filter 0.3s;
-  }
+}

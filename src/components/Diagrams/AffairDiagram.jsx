@@ -15,23 +15,21 @@ const AffairDiagram = ({ categoryStats, diagramView}) => {
 	const [categoryLabels, setCategoryLabels] = useState([]);
 	const [categoryColors, setCategoryColors] = useState([]);
 	const [categoryDurations, setCategoryDurations] = useState([]);
-	// const [durationsInHours, setDurationsInHours] = useState([]);
 	
 	useEffect(() => {
-	  if (categoryStats) {
-		const labels = Object.keys(categoryStats);
-		const colors = Object.values(categoryStats).map(category => category.color);
-		const durations = Object.values(categoryStats).map(category => category.duration);
-		
-		setCategoryLabels(labels);
-		setCategoryColors(colors);
-		setCategoryDurations(durations);
-	  }
+		if (categoryStats) {
+			const labels = Object.keys(categoryStats);
+			const colors = Object.values(categoryStats).map(category => category.color);
+			const durations = Object.values(categoryStats).map(category => category.duration);
+			
+			setCategoryLabels(labels);
+			setCategoryColors(colors);
+			setCategoryDurations(durations);
+		}
 	}, [categoryStats]);
 	
 
 	const doughnutChartData = {
-		// labels: categoryLabels,
 		datasets: [
 			{
 				label: ' ',
@@ -40,11 +38,6 @@ const AffairDiagram = ({ categoryStats, diagramView}) => {
 				fill: true,
 			},
 		],
-		// options: {
-		// 	scales: {
-		// 		display: false
-		// 	}
-		// }
 	};
 	  
     const barChartData = {
@@ -75,11 +68,11 @@ const AffairDiagram = ({ categoryStats, diagramView}) => {
 		switch(diagramViewName) {
 			case 'doughnut': 
 				return (
-					<div style={{width: '300px', height: '300px'}}>
+					<div style={{width: "50%", height: "30%", display: 'flex', justifyContent: 'center'}}>
 						<Doughnut
 							type="doughnut"
-							width={130}
-							height={130}
+							width={"50%"}
+							height={"50%"}
 							data={doughnutChartData}
 							options={doughnutChartData.options} // Передать опции
 						/>
@@ -87,11 +80,11 @@ const AffairDiagram = ({ categoryStats, diagramView}) => {
 				)
 			case 'bar':
 				return (
-					<div style={{width: '600px', height: '300px'}}>
+					<div style={{width: "100%", height: "100%", display: 'flex', justifyContent: 'center'}}>
 						<Bar
 							type="bar"
-							width={600}
-							height={300}
+							// width={"100%"}
+							// height={"300px"}
 							data={barChartData}
 							options={barChartData.options} // Передать опции
 						/>

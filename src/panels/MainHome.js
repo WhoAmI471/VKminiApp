@@ -9,17 +9,16 @@ const MainHome = props =>  {
 
 	return (
 		<Panel id={props.id}>
-			<PanelHeader>Не Теряю Времени!</PanelHeader>
+			<PanelHeader>Не теряю времени!</PanelHeader>
 			<div className='main-home-btns'>
-				<CellButton 
+				{/* <CellButton 
 					className='first-row-btns
 					row-btns work-btn'
 				>
 					<div className='home-btn'>
-						{/* <Icon28HomeOutline color='#FFFFFF'/> */}
 						<p className='home-btns'>В разработке...</p>
 					</div>
-				</CellButton>
+				</CellButton> */}
 
 				<ButtonGroup className='first-row-btns'>
 					<CellButton 
@@ -62,7 +61,8 @@ const MainHome = props =>  {
 							<p className='home-btns'>Анализ дел</p>
 						</div>
 					</CellButton>
-					<CellButton 
+					
+					{/* <CellButton 
 						className='row-btns work-btn' 
 						// onClick={props.go} 
 						// data-to='home'
@@ -71,7 +71,7 @@ const MainHome = props =>  {
 							<Icon20ShoppingCartOutline color='#FFFFFF'/>
 							<p className='home-btns'>В разработке...</p>
 						</div>
-					</CellButton>
+					</CellButton> */}
 				</ButtonGroup>
 			</div>
 		</Panel>

@@ -8,10 +8,19 @@ import './AffairItem.css';
 const AffiarPost = (props) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const handleCardClick = () => {
+      setIsExpanded(!isExpanded);
+    };
+
     return ( 
-        <Tappable className='card'>
+        <Tappable className='card' onClick={handleCardClick}>
             <div className='card-container'>
-                <p className='card-header'>{props.post.category[0]} | {props.post.duration} <span className='card-affair'>{props.post.affair}</span></p>
+                <div className={`card-content ${isExpanded ? 'expanded' : ''}`}>
+                    <p className='card-header'>{props.post.category[0]} | {props.post.duration} <span className='card-affair'>{props.post.affair} </span></p>
+                </div>
+
                 <button 
                     className='btn-del' 
                     onClick={() => props.remove(props.post)}

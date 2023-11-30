@@ -2,6 +2,8 @@
     "name": "mini-app",
     "version": "0.0.0",
     "scripts": {
+        "start:proxy1": "cross-env REACT_APP_PROXY_URL=https://DESKTOP-CI41VDF:5000 npm start",
+        "start:proxy2": "cross-env REACT_APP_PROXY_URL=https://fedora:5000 npm start",
         "start": "cross-env PORT=10888 HTTPS=true react-scripts start",
         "build": "react-scripts build",
         "predeploy": "npm run build",
@@ -53,5 +55,6 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "https://DESKTOP-CI41VDF:5000"
+    "proxy1": "https://DESKTOP-CI41VDF:5000",
+    "proxy": "https://fedora:5000"
 }

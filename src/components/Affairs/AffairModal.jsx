@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import { ModalRoot, ModalPage, ModalPageHeader, Button, FormLayout, FormItem, Select, Input, PanelHeaderButton, Text } from '@vkontakte/vkui';
 
+import CreateAffairModal from './CreateAffairModal';
+import WriteAffairModal from './WriteAffairModal';
+
 import './AffairModal.css';
 
 const AffairModal = props => {
@@ -11,93 +14,49 @@ const AffairModal = props => {
         {
             value: '0',
             label: '💼 Работа',
-            color: '#AF60FFB2'
+            color: '#FF9595'
         },
         {
             value: '1',
             label: '🏠 Домашние дела',
-            color: '#FFBA52B2'
+            color: '#FFD6BE'
         },
         {
             value: '2',
             label: '💪 Спорт',
-            color: '#6866E7B2'
+            color: '#63AB58'
         },
         {
             value: '3',
             label: '🌍 Путешествия',
-            color: '#26D8FFB2'
+            color: '#A0FFF9'
         },
         {
             value: '4',
             label: '🏥 Здоровье',
-            color: '#4FC98FB2'
+            color: '#90FF8D'
         },
         {
             value: '5',
             label: '💰 Финансы',
-            color: '#9694EF'
+            color: '#FDFF95'
         },
         {
             value: '6',
             label: '🎨 Хобби',
-            color: '#EE4949B2'
+            color: '#FF9356'
         },
         {
             value: '7',
             label: '🎉 Досуг',
-            color: '#59775CB2'
+            color: '#DD95FF'
         },
         {
             value: '8',
             label: '📚 Учеба',
-            color: '#47F143B2'
+            color: '#83A5FF'
         },
         ]
-
-    var times = [
-            {
-                value: '0',
-                label: '1 ч.',
-                duration: '1 0 0'
-            },
-            {
-                value: '1',
-                label: '2 ч.',
-                duration: '2 0 0'
-            },
-            {
-                value: '2',
-                label: '3 ч.',
-                duration: '3 0 0'
-            },
-            {
-                value: '3',
-                label: '4 ч.',
-                duration: '4 0 0'
-            },
-            {
-                value: '4',
-                label: '5 ч.',
-                duration: '5 0 0'
-            },
-            {
-                value: '5',
-                label: '6 ч.',
-                duration: '6 0 0'
-            },
-            {
-                value: '6',
-                label: '7 ч.',
-                duration: '7 0 0'
-            },
-            {
-                value: '7',
-                label: '8 ч.',
-                duration: '8 0 0'
-            },
-        ]
-
 
     const [formFilledCategory, setFormFilledCategory] = useState(false);
     const [formFilledTime, setFormFilledTime] = useState(false);
@@ -182,153 +141,39 @@ const AffairModal = props => {
 
 	return(
         <ModalRoot activeModal={props.id} className={'modal-root'}>
-            <ModalPage id="create-affair" onClose={() => close()}>
-                <ModalPageHeader 
-                    before={<Text className='modal-header'>Новое дело</Text>}
-                    after={
-                        <PanelHeaderButton onClick={() => close()}>
-                            Отменить
-                        </PanelHeaderButton>
-                    }
-                />
+            <CreateAffairModal 
+                id={'create-affair'}
+                go={props.go}
+                close={close}
+                onClose={() => close()}
+                catygories={catygories}
+                setCategory={props.setCategory}
+                setAffair={props.setAffair}
+                formFilledCategory={formFilledCategory}
+                setFormFilledCategory={setFormFilledCategory}
+                formFilledAffair={formFilledAffair}
+                setFormFilledAffair={setFormFilledAffair}
+            />
 
-                <FormLayout>
-                    <FormItem 
-                        top="Выберите категорию" 
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledCategory(true);
-                                props.setCategory([catygories[e.target.value]['label'], catygories[e.target.value]['color']])
-                            } else {
-                                setFormFilledCategory(false);
-                            }
-                        }}
-                    >
-                        <Select
-                            options={catygories}
-                        />
-                    </FormItem>
-
-                    <FormItem 
-                        top="Назовите ваше дело"
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledAffair(true);
-                                props.setAffair(e.target.value)
-                            } else {
-                                setFormFilledAffair(false);
-                            }
-                        }}
-                    >
-                        <Input
-                            placeholder="Отмечаю др"
-                        />
-                    </FormItem>
-
-                    <div className='btn-padding'>
-                        <Button 
-                            className='create-btn'
-                            stretched={true}
-                            appearance=''
-                            onClick={props.go} 
-                            data-to='timer'
-                            disabled={!(formFilledCategory && formFilledAffair)}
-                        >
-                            Создать
-                        </Button>
-                    </div>
-                </FormLayout>
-            </ModalPage>
-
-            <ModalPage id="write-affair" onClose={() => close()}>
-                <ModalPageHeader 
-                    before={<Text className='modal-header'>Новое дело</Text>}
-                    after={
-                        <PanelHeaderButton onClick={() => props.closeModal()}>
-                            Отменить
-                        </PanelHeaderButton>
-                    }
-                />
-
-                <FormLayout>
-                    
-                    <FormItem 
-                        top="Выбранная дата" 
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledCategory(true);
-                            } else {
-                                setFormFilledCategory(false);
-                            }
-                        }}
-                    >
-                        <Input
-                            value={props.selectedDate}
-                            disabled
-                        />
-                    </FormItem>
-
-                    <FormItem 
-                        top="Выберите категорию" 
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledCategory(true);
-                                props.setCategory([catygories[e.target.value]['label'], catygories[e.target.value]['color']])
-                            } else {
-                                setFormFilledCategory(false);
-                            }
-                        }}
-                    >
-                        <Select
-                            options={catygories}
-                        />
-                    </FormItem>
-
-                    <FormItem 
-                        top="Укажите длительность дела" 
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledTime(true);
-                                props.setDuration(times[e.target.value]['duration']);
-                            } else {
-                                setFormFilledTime(false);
-                            }
-                        }}
-                    >
-                        <Select
-                            options={times}
-                        />
-                    </FormItem>
-
-                    <FormItem 
-                        top="Назовите ваше дело"
-                        onChange={e => {
-                            if (e.target.value) {
-                                setFormFilledAffair(true);
-                                props.setAffair(e.target.value)
-                            } else {
-                                setFormFilledAffair(false);
-                            }
-                        }}
-                    >
-                        <Input
-                            placeholder="Отмечаю др"
-                        />
-                    </FormItem>
-
-                    <div className='btn-padding'>
-                        <Button 
-                            className='create-btn'
-                            stretched={true}
-                            appearance=''
-                            onClick={() => addNewAffair()}
-                            disabled={!(formFilledCategory && formFilledTime && formFilledAffair)}
-                        >
-                            Создать
-                        </Button>
-                    </div>
-                </FormLayout>
-            </ModalPage>
+            <WriteAffairModal 
+                id={'write-affair'} 
+                go={props.go}
+                close={close}
+                addNewAffair={addNewAffair}
+                onClose={() => close()}
+                catygories={catygories}
+                setCategory={props.setCategory}
+                setDuration={props.setDuration}
+                setAffair={props.setAffair}
+                selectedDate={props.selectedDate}
+                formFilledCategory={formFilledCategory}
+                setFormFilledCategory={setFormFilledCategory}
+                formFilledTime={formFilledTime}
+                setFormFilledTime={setFormFilledTime}
+                formFilledAffair={formFilledAffair}
+                setFormFilledAffair={setFormFilledAffair}
+            />
+                
         </ModalRoot>
 	)
 };

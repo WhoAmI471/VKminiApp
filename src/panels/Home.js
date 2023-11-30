@@ -9,7 +9,17 @@ import backMes from '../img/BackMessage.svg';
 
 
 
-const Home = ({ id, go}) =>   {
+const Home = ({ id, go, userId, advice, setAdvice }) =>   {
+
+
+	const nextAdvice = () => {
+		fetch(`/getNextAdvice?userId=${userId.id}`)
+		.then(response => response.json())
+		.then(response => {
+			console.log("MESSAGE:------" + response);
+			setAdvice(response);
+		});
+	}
 
 	return (
 		<div id={id}>
@@ -17,8 +27,10 @@ const Home = ({ id, go}) =>   {
 			<Div className='main'>
 				<img className='main-img' src={myImage}/>
 				<Div className='main-message'>
-					<img className='message-img' src={backMes}/>
-					<Text className='message-text'>Правильно составленный рацион пищи улучшает качество и продолжительность жизни</Text>
+					<div className='triangle'></div>
+					<div className='message-bacground'>
+						<p className='message-text'>{advice}</p>
+					</div>
 				</Div>
 			</Div>
 			<Group className='bottom-buttons'>
@@ -26,6 +38,7 @@ const Home = ({ id, go}) =>   {
 					className='frt-btn' 
 					stretched={true} 
 					appearance=''
+					onClick={() => nextAdvice()}
 				>
 					<span className='text-btn' >Показать еще</span> 2 р.
 				</Button>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Group, ButtonGroup, Button, Calendar, Panel, PanelHeader, PanelHeaderBack, Text } from '@vkontakte/vkui';
+import { Group, ButtonGroup, Button, Calendar, Panel, PanelHeader, PanelHeaderBack, Text, Spacing, Separator } from '@vkontakte/vkui';
 import { Icon28WriteSquareOutline } from '@vkontakte/icons';
 import './Affairs.css';
 
@@ -12,14 +12,17 @@ const Affairs = props => {
 
 	const [modalOpened, setModalOpened] = useState('');
 
-	const closeModal = () => {
-		setModalOpened('');
-	}
-	
 	const [dateNow, setDateNow] = useState(() => new Date());
+
+
 	useEffect(() => {
 		setDateNow(dateNow.getDate() + "-" + (dateNow.getMonth() + 1) + "-" + dateNow.getFullYear());
 	}, [])
+
+
+	const closeModal = () => {
+		setModalOpened('');
+	}
 
 	const removeAffair = (affair) => {
 		props.setUserAffairs(props.userAffairs.filter(a => a.id !== affair.id))
@@ -33,7 +36,7 @@ const Affairs = props => {
 		
 		console.log(responseRemove);
 	}
-	console.log(props.userAffairs);
+	
 	return(
 		<Panel id={props.id}>
 			<PanelHeader
@@ -44,13 +47,18 @@ const Affairs = props => {
 				Мои дела
 			</PanelHeader>
 			
-			<div className={'affairs-container'}>
+			<div className='affairs-container'>
 				<div className='affairs-new'>
 					<Calendar
 						value={props.date}
 						onChange={props.setDate}
 						showNeighboringMonth={true}
 					/>
+					
+					<Spacing style={{width: '100%'}} size={24}>
+						<Separator />
+					</Spacing>
+
 					{ props.userAffairs['length'] !== 0
 						? <Group className={'affair-list'}>
 							<AffiarList  remove={removeAffair} affairs={props.userAffairs}/>
@@ -63,23 +71,37 @@ const Affairs = props => {
 						
 				</div>
 				
-				<ButtonGroup className='aff-btns' stretched>
-					<Button 
-						className='new-btn' 
-						appearance=''
-						onClick={() => setModalOpened('create-affair')}
-					>
-						Начать дело
-					</Button>
+				{ dateNow == props.serverDate ?
+					(
+						<ButtonGroup className='aff-btns' stretched>
+							<Button 
+								className='new-btn' 
+								appearance=''
+								onClick={() => setModalOpened('create-affair')}
+							>
+								Начать дело
+							</Button>
+							<Button 
+								className='wrt-btn' 
+								appearance=''
+								onClick={() => setModalOpened('write-affair')}
+							>
+								Записать дело
+							</Button>
+						</ButtonGroup>
+					) : (
 
-					<Button 
-						className='wrt-btn' 
-						appearance=''
-						onClick={() => setModalOpened('write-affair')}
-					>
-						Записать дело
-					</Button>
-				</ButtonGroup>
+						<ButtonGroup className='aff-btns' stretched>
+							<Button 
+								className='wrt-btn' 
+								appearance=''
+								onClick={() => setModalOpened('write-affair')}
+							>
+								Записать дело
+							</Button>
+						</ButtonGroup>
+					)
+				}
 				
 			</div>
 			<AffairModal 

@@ -9,7 +9,7 @@ import { Icon16Dropdown } from '@vkontakte/icons';
 const CaseTabs = ({ dateRange, setDateRange }) => {
 
     return (
-        <Group>
+        <div>
             <Tabs>
                 <HorizontalScroll arrowSize="m">
                     <TabsItem
@@ -38,7 +38,7 @@ const CaseTabs = ({ dateRange, setDateRange }) => {
                     </TabsItem>
                 </HorizontalScroll>
             </Tabs>
-        </Group>
+        </div>
     );
 };
 
