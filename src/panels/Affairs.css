@@ -1,108 +1,109 @@
 .affairs-container {
-    display: flex; 
-    flex-direction: column;
-    justify-content: space-between; 
-    align-items: center;
-    /* background-color: #ffffff;  */
-    height: 98%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #ffffff;  */
+  height: 98%;
 }
 
-.affairs-new, .begin-affair {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: space-between; */
+.affairs-new,
+.begin-affair {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between; */
 }
 
 .affair-list {
-    width: 100%;
-    overflow-y: auto;
-    max-height: 250px; 
+  width: 100%;
+  overflow-y: auto;
+  max-height: 250px;
 }
 
-.begin-affair{
-    margin: auto 0;
-    height: 100%;
-    justify-content: center;
+.begin-affair {
+  margin: auto 0;
+  height: 100%;
+  justify-content: center;
 }
-
-
-
 
 .vkuiCalendar {
-    background-color: var(--vkui--color_header_background);
-    border: none;
-    box-shadow: none;
-    width: 100%;
-    padding: 0 31px;
+  background-color: var(--vkui--color_header_background);
+  border: none;
+  box-shadow: none;
+  width: 100%;
+  padding: 0 31px;
 }
 
 /* .vkuiCalendarHeader__pickers label:nth-child(2n) {
     background-color: #00AA9F;
 } */
 
-.vkuiCalendarDay, .vkuiCalendarDay__hidden {
-    height: 40px;
-    margin: 1.5px 1.5px;
-    border-radius: 8px;
-    
-    background-color: var(--vkui--color_skeleton_from);
-    /* color: black; */
+.vkuiCalendarDay,
+.vkuiCalendarDay__hidden {
+  height: 40px;
+  margin: 1.5px 1.5px;
+  border-radius: 8px;
+
+  background-color: var(--vkui--color_skeleton_from);
+  /* color: black; */
 }
 
 .vkuiCalendarDay__inner {
-    /* background-color: #E9E9E9; */
-    /* border: 1px solid #E9E9E9; */
+  /* background-color: #E9E9E9; */
+  /* border: 1px solid #E9E9E9; */
 
-    height: 40px;
+  height: 40px;
 }
 
 .vkuiCalendarDay:hover {
-    background-color: #00AA9F;
-    color: #ffffff;
+  background-color: #00aa9f;
+  color: #ffffff;
 }
 
 .vkuiCalendarDay__inner--active {
-    background-color: #00AA9F;;
+  background-color: #00aa9f;
 }
 
-.vkuiCalendarDay--today 
-.vkuiCalendarDay__day-number:after {
-    color: #00AA9F;
-    border-bottom: 2px solid #00AA9F;;
+.vkuiCalendarDay--today {
+  font-weight: normal;
 }
 
-.vkuiCalendarDay--disabled, 
-.vkuiCalendarDay--not-same-month{
-    background-color: var(--background_content);
-    border-radius: 6px;
-    border: 1px solid var(--vkui--color_separator_primary2x);
+.vkuiCalendarDay--today .vkuiCalendarDay__day-number:after {
+  color: #00aa9f;
+  border-bottom: 2px solid #00aa9f;
 }
 
-
+.vkuiCalendarDay--disabled,
+.vkuiCalendarDay--not-same-month {
+  background-color: var(--background_content);
+  border-radius: 6px;
+  border: 1px solid var(--vkui--color_separator_primary2x);
+}
 
 .new-text {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px; 
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
 }
 
 .aff-btns {
-    width: 95%;
-    padding: 0 20px;
+  width: 95%;
+  padding: 0 20px;
 }
 
-.new-btn, .wrt-btn {
-    width: 100%;
-    margin-bottom: 16px;
-    height: 44px;
-    background-color: #00AA9F;
-    color: #ffffff;
+.new-btn,
+.wrt-btn {
+  width: 100%;
+  margin-bottom: 16px;
+  height: 44px;
+  background-color: #00aa9f;
+  color: #ffffff;
 }
 
 .new-btn:active {
-    background-color: #00c5b8;
+  background-color: #00c5b8;
 }
